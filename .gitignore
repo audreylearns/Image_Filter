@@ -1,0 +1,9 @@
+# Ignore build directory
+build/
+
+# Ignore .vscode directory
+.vscode/
+
+# Ignore all .jpg and .jpeg files
+*.jpg
+*.jpeg
