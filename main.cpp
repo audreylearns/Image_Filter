@@ -1,47 +1,8 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include "filters.h" //move all methods here to run
-void filterToRed(cv::Mat& image) {
-    for (int i = 0; i < image.rows; ++i) {
-        for (int j = 0; j < image.cols; ++j) {
-            cv::Vec3b& pixel = image.at<cv::Vec3b>(i, j);
-            //[0] : blue, //[1] : green, //[2] : red,  
-            pixel[0] = 0; // BLUE
-            pixel[1] = 0; // green
-            //pixel[2] = 0; // red
+#include "colorize_filters.h" //move all colorize methods here to run
 
-            // //v2
-            // std::cout << "Hello, World!" << std::endl;
-            //max val at 255, min at 0
-        }
-    }
-}
-
-void filterToBlue(cv::Mat& image) {
-    for (int i = 0; i < image.rows; ++i) {
-        for (int j = 0; j < image.cols; ++j) {
-            cv::Vec3b& pixel = image.at<cv::Vec3b>(i, j);
-            //[0] : blue, //[1] : green, //[2] : red,  
-            //pixel[0] = 0; // BLUE
-            pixel[1] = 0; // green
-            pixel[2] = 0; // red
-        }
-    }
-}
-
-void filterToGreen(cv::Mat& image) {
-    for (int i = 0; i < image.rows; ++i) {
-        for (int j = 0; j < image.cols; ++j) {
-            cv::Vec3b& pixel = image.at<cv::Vec3b>(i, j);
-            //[0] : blue, //[1] : green, //[2] : red,  
-            pixel[0] = 0; // BLUE
-            //pixel[1] = 0; // green
-            pixel[2] = 0; // red
-        }
-    }
-}
-
-
+//resize the image for display, param 1 source, param 2 target
 void imageResize(cv::Mat image, cv::Mat& resizedImage){
     int windowWidth = 800;  // Desired width of the window
     int windowHeight = 600; // Desired height of the window
@@ -66,7 +27,7 @@ void imageResize(cv::Mat image, cv::Mat& resizedImage){
 }
 
 int main(){
-
+    
 
     std::string imagePath = "tifa.jpeg";
     //Mat is a structure that keeps matrix/image characteristics
@@ -77,7 +38,7 @@ int main(){
     imageResize(image, original_resized);
     cv::imshow("original resized", original_resized);
 
-    filterToRed(image);
+    filterToViolet(image);
 
     std::string outputPath = "img_alt.jpeg"; 
     cv::imwrite(outputPath, image); //saving to new file
