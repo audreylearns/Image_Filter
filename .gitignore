@@ -7,3 +7,4 @@ build/
 # Ignore all .jpg and .jpeg files
 *.jpg
 *.jpeg
+*.png
