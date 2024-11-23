@@ -36,6 +36,7 @@ int menuImage(){
         cout << "image sample to use from the " << endl;
         cout << "following:" << endl;
         cout << "==============================" << endl << endl;
+        cout << "0. Kernel test"<< endl;
         cout << "1. small" << endl;
         cout << "2. 1080p" << endl;
         cout << "3. 4k" << endl;
@@ -43,7 +44,7 @@ int menuImage(){
         cout << "5. large" << endl;
         cout << "==============================" << endl << endl;
         cin >> img_opt;
-        if (!(img_opt <1 || img_opt > 5)){
+        if (!(img_opt <0 || img_opt > 5)){
             selection = true;
         }
     }
@@ -53,6 +54,9 @@ int menuImage(){
 cv::Mat imgLoad(int selection){
     std::string imagePath = "";
     switch (selection){
+        case 0:
+            imagePath = "7x7.jpg";
+            break;
         case 1:
             imagePath = "336x297.jpg";
             break;
@@ -60,7 +64,7 @@ cv::Mat imgLoad(int selection){
             imagePath = "1080p.png";
             break;
         case 3:
-            imagePath = "4k_image.jpeg";
+            imagePath = "4k_image.jpg";
             break;
         case 4:
             imagePath = "8k_image.jpg";

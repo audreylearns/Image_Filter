@@ -4,8 +4,10 @@
 #include <string>
 #include "colorize_filters.h" //move all colorize methods here to run
 #include "menu.h" 
+#include "blur.h" 
 
-
+#define kernel 7
+#define sigma 7
 int main(){
     int imageOpt = menuImage();
     int filterby = menu();
@@ -49,7 +51,7 @@ int main(){
             cout << "Under Construction Sharpen" << endl;
             break;
         case 10:
-            cout << "Under Construction Sharpen" << endl;
+            gaussianBlur(image,kernel,sigma);
             break;
         case 11:
             filterToInverse(image);    
