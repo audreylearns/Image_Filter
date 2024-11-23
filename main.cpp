@@ -50,7 +50,9 @@ int main(){
             break;
         case 10:
             cout << "Under Construction Sharpen" << endl;
-            break;        
+            break;
+        case 11:
+            filterToInverse(image);    
         // code block
     }
     

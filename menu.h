@@ -18,9 +18,10 @@ int menu(){
         cout << "8. GRAY" << endl;
         cout << "9. SHARPEN" << endl;
         cout << "10. BLUR" << endl;
+        cout << "11. Inverse" << endl;
         cout << "==============================" << endl << endl;
         cin >> filterTo;
-        if (!(filterTo <1 || filterTo > 8)){
+        if (!(filterTo <1 || filterTo > 11)){
             selection = true;
         }
     }
