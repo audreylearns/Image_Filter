@@ -82,11 +82,6 @@ cv::Mat filterToGrey(cv::Mat image) {
             // Calculate the grayscale value of the pixel using Luma Grayscale conversion
             uchar grayValue = static_cast<uchar>(0.299 * pixel[2] + 0.587 * pixel[1] + 0.114 * pixel[0]);
             gray.at<uchar>(i, j) = grayValue; // Set the grayscale value, single channel
-            if (i==100 && j == 100){
-                std::cout << pixel;
-                std::cout << (int)grayValue;
-                std::cout << (int)gray.at<uchar>(i, j);
-            }
 
         }
     }

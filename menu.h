@@ -16,7 +16,7 @@ int menu(){
         cout << "6. VIOLET" << endl;
         cout << "7. PINK" << endl;
         cout << "8. GRAY" << endl;
-        cout << "9. SHARPEN" << endl;
+        cout << "9. Edge Outline" << endl;
         cout << "10. BLUR" << endl;
         cout << "11. Inverse" << endl;
         cout << "==============================" << endl << endl;

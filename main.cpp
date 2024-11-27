@@ -5,6 +5,7 @@
 #include "colorize_filters.h" //move all colorize methods here to run
 #include "menu.h" 
 #include "blur.h" 
+#include "edge.h"
 
 #define kernel 7
 #define sigma 7
@@ -48,7 +49,7 @@ int main(){
             grayImg = filterToGrey(image);
             break;                                           
         case 9:
-            cout << "Under Construction Sharpen" << endl;
+            grayImg = differenceOfGaussian(image, 2, 9, kernel);
             break;
         case 10:
             gaussianBlur(image,kernel,sigma);
@@ -60,7 +61,7 @@ int main(){
     
     std::string outputPath = "img_alt.jpeg"; 
     //case gray
-    if (filterby == 8){
+    if (filterby == 8 || filterby == 9){
         cv::imwrite(outputPath, grayImg);
     }else{ //BGR
         cv::imwrite(outputPath, image);
