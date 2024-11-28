@@ -2,13 +2,30 @@
 #include <iostream>
 #include <stdlib.h> 
 #include <string>
-#include "colorize_filters.h" //move all colorize methods here to run
+#include <chrono> // for time duration
 #include "menu.h" 
-#include "blur.h" 
-#include "edge.h"
+// INSTRUCTIONS!!!!! =================================================
+//      comment out parallelized to run regularly
+//      comment out regular to not run in parallel
+//====================================================================
+
+#define parallelized
+// #define regular
+
+#ifdef regular
+    #include "colorize_filters.h" //move all colorize methods here to run
+    #include "blur.h" 
+    #include "edge.h"
+#endif
+
+#ifdef parallelized
+    #include "parallel.h"
+#endif
+
 
 #define kernel 7
 #define sigma 7
+
 int main(){
     int imageOpt = menuImage();
     int filterby = menu();
@@ -56,7 +73,7 @@ int main(){
             break;
         case 11:
             filterToInverse(image);    
-        // code block
+            break;
     }
     
     std::string outputPath = "img_alt.jpeg"; 
@@ -77,31 +94,6 @@ int main(){
         cv::imshow("Altered", alt_cpy);
     }
     
-    {
-        //std::string imagePath = "336x297.jpg";
-        //Mat is a structure that keeps matrix/image characteristics
-        //cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR); //BGR values
-
-        //cv::imshow("Original", image);
-        //cv::Mat original_resized; //for resized
-        //imageResize(image, original_resized);
-        //cv::imshow("original resized", original_resized);
-        //cv::imshow("original", image);
-
-        //cv::Mat grayImg = filterToGrey(image);
-
-        //std::string outputPath = "img_alt.jpeg"; 
-        //cv::imwrite(outputPath, grayImg);
-        //cv::imwrite(outputPath, image); //saving to new file
-        
-        //std::cout << "Filtered image saved as: " << outputPath << std::endl;
-        //cv::Mat alt_resized = cv::imread(outputPath, cv::IMREAD_COLOR);
-        
-        //imageResize(alt_resized, alt_resized);
-        // cv::imshow("Altered", alt_resized);
-        // cv::imshow("Altered", alt_resized);
-    }
-
 
     cv::waitKey(0);
     return 0;

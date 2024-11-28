@@ -1,8 +1,6 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <vector>
-// #include "blur.h"
-// #include "colorize_filters.h"
 
 //3x3
 cv::Mat differenceOfGaussian(cv::Mat& image, double sigma1, double sigma2, int kernelSz) {
