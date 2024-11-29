@@ -153,7 +153,7 @@ void gaussianBlur(cv::Mat& image, int kernelSize, double sigma) {
 
     cv::Mat blurredImage = image.clone();
     // Apply the Gaussian kernel to each pixel
-    #pragma omp parallel for collapse (2) num_threads(4) 
+    #pragma omp parallel for collapse (2) num_threads(12) 
     for (int i = 0; i < image.rows; ++i) { //loop into image matrix
         for (int j = 0; j < image.cols; ++j) { //loop into image matrix
             cv::Vec3b newPixel(0, 0, 0); // black pixel
@@ -194,7 +194,7 @@ cv::Mat differenceOfGaussian(cv::Mat& image, double sigma1, double sigma2, int k
     // cv::imshow("high", im2Gray);
     //dOg
     cv::Mat difference = cv::Mat::zeros(image.size(),  cv::IMREAD_GRAYSCALE);
-    #pragma omp parallel for collapse (2) num_threads(4) 
+    #pragma omp parallel for collapse (2) num_threads(12) 
     for (int i = 0; i < image.rows; ++i) {
         for (int j = 0; j < image.cols; ++j) {
             uchar pixel1 = im1Gray.at<uchar>(i, j);
@@ -207,7 +207,7 @@ cv::Mat differenceOfGaussian(cv::Mat& image, double sigma1, double sigma2, int k
     }
     //cv::imshow("diff", difference);
     //threshold sequence to invert color
-    #pragma omp parallel for collapse (2) num_threads(4) 
+    #pragma omp parallel for collapse (2) num_threads(12) 
     for (int i = 0; i < difference.rows; ++i) {
         for (int j = 0; j < difference.cols; ++j) {
             uchar pixel = difference.at<uchar>(i, j);
