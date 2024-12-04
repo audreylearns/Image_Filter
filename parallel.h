@@ -8,6 +8,15 @@
     #define M_PI 3.14159265358979323846
 #endif
 
+// INSTRUCTIONS!!!!! =================================================
+//      comment out single_parallel_region to encapsulated directive
+//      comment out double_parallel_region for multiple wake-sleep cycle
+//====================================================================
+
+#define single_parallel_region
+// #define double_parallel_region
+
+
 //color filters =========================================================
 void filterToRed(cv::Mat& image) {
     #pragma omp parallel for collapse (2)
@@ -194,30 +203,63 @@ cv::Mat differenceOfGaussian(cv::Mat& image, double sigma1, double sigma2, int k
     // cv::imshow("high", im2Gray);
     //dOg
     cv::Mat difference = cv::Mat::zeros(image.size(),  cv::IMREAD_GRAYSCALE);
-    #pragma omp parallel for collapse (2) num_threads(12) 
-    for (int i = 0; i < image.rows; ++i) {
-        for (int j = 0; j < image.cols; ++j) {
-            uchar pixel1 = im1Gray.at<uchar>(i, j);
-            uchar pixel2 = im2Gray.at<uchar>(i, j);
+    #ifdef single_parallel_region
+        #pragma omp parallel num_threads(12)
+        {
+            #pragma omp for 
+            for (int i = 0; i < image.rows; ++i) {
+                for (int j = 0; j < image.cols; ++j) {
+                    uchar pixel1 = im1Gray.at<uchar>(i, j);
+                    uchar pixel2 = im2Gray.at<uchar>(i, j);
 
-            // Calculate the absolute difference
-            int diff = static_cast<int>(pixel1) - static_cast<int>(pixel2);
-            difference.at<uchar>(i, j) = static_cast<uchar>(std::abs(diff));
+                    // Calculate the absolute difference
+                    int diff = static_cast<int>(pixel1) - static_cast<int>(pixel2);
+                    difference.at<uchar>(i, j) = static_cast<uchar>(std::abs(diff));
+                }
+            }
+            //cv::imshow("diff", difference);
+            //threshold sequence to invert color
+            #pragma omp for 
+            for (int i = 0; i < difference.rows; ++i) {
+                for (int j = 0; j < difference.cols; ++j) {
+                    uchar pixel = difference.at<uchar>(i, j);
+                    if (pixel > 4) {
+                        difference.at<uchar>(i, j) = 0; // Black for edges
+                    } else {
+                        difference.at<uchar>(i, j) = 255; // White for non-edges
+                    }
+                }
+            }
+
         }
-    }
-    //cv::imshow("diff", difference);
-    //threshold sequence to invert color
-    #pragma omp parallel for collapse (2) num_threads(12) 
-    for (int i = 0; i < difference.rows; ++i) {
-        for (int j = 0; j < difference.cols; ++j) {
-            uchar pixel = difference.at<uchar>(i, j);
-            if (pixel > 4) {
-                difference.at<uchar>(i, j) = 0; // Black for edges
-            } else {
-                difference.at<uchar>(i, j) = 255; // White for non-edges
+    #endif
+    
+    #ifdef double_parallel_region
+        #pragma omp parallel for collapse (2) num_threads(12) 
+        for (int i = 0; i < image.rows; ++i) {
+            for (int j = 0; j < image.cols; ++j) {
+                uchar pixel1 = im1Gray.at<uchar>(i, j);
+                uchar pixel2 = im2Gray.at<uchar>(i, j);
+
+                // Calculate the absolute difference
+                int diff = static_cast<int>(pixel1) - static_cast<int>(pixel2);
+                difference.at<uchar>(i, j) = static_cast<uchar>(std::abs(diff));
             }
         }
-    }
+        //cv::imshow("diff", difference);
+        //threshold sequence to invert color
+        #pragma omp parallel for collapse (2) num_threads(12) 
+        for (int i = 0; i < difference.rows; ++i) {
+            for (int j = 0; j < difference.cols; ++j) {
+                uchar pixel = difference.at<uchar>(i, j);
+                if (pixel > 4) {
+                    difference.at<uchar>(i, j) = 0; // Black for edges
+                } else {
+                    difference.at<uchar>(i, j) = 255; // White for non-edges
+                }
+            }
+        }
+    #endif
 
     return difference;
 

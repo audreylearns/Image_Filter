@@ -9,8 +9,8 @@
 //      comment out regular to not run in parallel
 //====================================================================
 
-#define parallelized
-// #define regular
+// #define parallelized
+#define regular
 
 #ifdef regular
     #include "colorize_filters.h" //move all colorize methods here to run
