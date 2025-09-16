@@ -5,6 +5,6 @@ build/
 .vscode/
 
 # Ignore all .jpg and .jpeg files
-*.jpg
-*.jpeg
-*.png
+# *.jpg
+# *.jpeg
+# *.png
