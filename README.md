@@ -8,7 +8,7 @@ A terminal based application applying color filters, edge detection, and gaussia
 - Applies parallel algorithm with OpenMP directives: parallel for collapse, num_threads specification, and single parallel region.
 
 ***
-##Prerequisites & Instructions
+## Prerequisites & Instructions
 - Download and install CMake: https://cmake.org/
 - Download and install OpenCV: https://opencv.org/releases/
 - Clone this repo, or download the .zip and unzip
