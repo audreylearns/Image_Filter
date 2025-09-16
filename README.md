@@ -7,6 +7,15 @@ A terminal based application applying color filters, edge detection, and gaussia
 - Incorporates an image processing library, OpenCV for matrix construction, pixel channel access, loading, saving and displaying the images.
 - Applies parallel algorithm with OpenMP directives: parallel for collapse, num_threads specification, and single parallel region.
 
+***
+##Prerequisites & Instructions
+- Download and install CMake: https://cmake.org/
+- Download and install OpenCV: https://opencv.org/releases/
+- Clone this repo, or download the .zip and unzip
+- Into the project's directory build: ```cmake --build .\build\ --config Release```
+- Run: ```.\build\Release\prjname.exe```
+
+***
 ## Method:
 - Pixel Channel Manipulation - setting opposing channels to 0 or 255 to intensify for the selected color
 - Grayscale - Using a single channel and calculating the luma of each pixel with sRGB values
